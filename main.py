@@ -1,6 +1,4 @@
-def main():
-    print("Hello from traffic-monitoring!")
-
+from src.pipeline.predict import run
 
 if __name__ == "__main__":
-    main()
+    run('data')

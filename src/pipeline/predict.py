@@ -1,11 +1,16 @@
+import os
 from src.utils.helper import count
 from src.components.detector import Detect
 
-def run(image_path):
+def run(folder_path):
     detector = Detect()
-    results = detector.predict(image_path)
 
-    vehicle_count = count(results)
-    print(f'Vehicle count: {vehicle_count}')
+    for file in os.listdir(folder_path):
+        if file.endswith((".jpg", ".png", ".mp4")):
+            path = os.path.join(folder_path, file)
 
-    results[0].save(filename = 'data/processed/output.jpg')
+            result = detector.predict(path)
+            count_vehicles = count(result)
+
+            print(f'{file}, Vehicle count: {count_vehicles}')
+            result[0].save(filename = f'data/processed/{file}')
